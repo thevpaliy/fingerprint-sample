@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="swirl_ridgeColor">@color/colorPrimary</item>
+        <item name="swirl_errorColor">#c90404</item>
     </style>
 
 </resources>

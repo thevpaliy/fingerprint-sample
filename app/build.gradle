@@ -40,10 +40,11 @@ android {
 }
 
 dependencies {
-    implementation  'com.github.ajalt.reprint:core:3.2.1@aar'
-    implementation  'com.github.ajalt.reprint:reprint_spass:3.2.1@aar'
-    implementation  'com.github.ajalt.reprint:rxjava2:3.2.1@aar'
-    implementation  "de.adorsys.android:securestoragelibrary:1.0.2"
+    implementation 'com.mattprecious.swirl:swirl:1.1.0'
+    implementation 'com.github.ajalt.reprint:core:3.2.1@aar'
+    implementation 'com.github.ajalt.reprint:reprint_spass:3.2.1@aar'
+    implementation 'com.github.ajalt.reprint:rxjava2:3.2.1@aar'
+    implementation "de.adorsys.android:securestoragelibrary:1.0.2"
 
     implementation libs.constraintLayout
     implementation libs.supportDesign
@@ -57,6 +58,4 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }

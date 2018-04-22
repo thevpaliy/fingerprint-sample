@@ -11,5 +11,7 @@ object FingerprintContract {
     fun showLockedSensor()
     fun showSuccess()
     fun showPrompt(prompt: String)
+    fun showRegistration()
+    fun hideRegistration()
   }
 }

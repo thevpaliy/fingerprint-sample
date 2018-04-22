@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">fingerprint</string>
+    <string name="fingerprint_description">Confirm fingerprint to continue</string>
+    <string name="fingerprint_hint">Touch sensor</string>
+    <string name="fingerprint_success">Success</string>
+    <string name="too_many_attempts">Too many attempts.Try again later.</string>
+    <string name="use_fingerprint_label">Use Fingerprint</string>
+    <string name="cancel_label">Cancel</string>
+    <string name="sign_in_label">Sign In</string>
 </resources>

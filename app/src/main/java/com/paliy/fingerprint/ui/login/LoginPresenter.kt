@@ -1,7 +1,22 @@
 package com.paliy.fingerprint.ui.login
 
-class LoginPresenter : LoginContract.Presenter {
+import com.paliy.fingerprint.ui.fingerprint.FingerprintClient
+
+class LoginPresenter(
+    private val fingerprintClient: FingerprintClient,
+    private var view: LoginContract.View? = null
+) : LoginContract.Presenter {
+
   override fun login(credentials: Credentials) {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+  }
+
+  override fun attach(view: LoginContract.View) {
+    this.view = view
+    if (fingerprintClient.isAvailable) {
+      view.showFingerprint()
+    } else {
+      view.hideFingerprint()
+    }
   }
 }

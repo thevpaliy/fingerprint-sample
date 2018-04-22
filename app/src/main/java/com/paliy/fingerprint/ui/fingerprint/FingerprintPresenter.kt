@@ -5,10 +5,15 @@ class FingerprintPresenter(
     private var view: FingerprintContract.View? = null
 ) : FingerprintContract.Presenter {
 
+  private var passed = false
+
   override fun startScanning() {
-    fingerprintClient.authenticate({
-      view?.showSuccess()
-    }, this::onError)
+    if (passed) {
+      fingerprintClient.authenticate({
+        passed = true
+        view?.showSuccess()
+      }, this::onError)
+    }
   }
 
   private fun onError(error: AuthError) {
@@ -24,5 +29,10 @@ class FingerprintPresenter(
 
   override fun attachView(view: FingerprintContract.View) {
     this.view = view
+    if (!fingerprintClient.hasFingerprints) {
+      view.showRegistration()
+    } else {
+      view.hideRegistration()
+    }
   }
 }
