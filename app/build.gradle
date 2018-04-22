@@ -1,0 +1,62 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+def libs = rootProject.ext.dependencies
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.paliy.fingerprint"
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    kapt {
+        generateStubs = true
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        main.java.srcDirs += [file("$buildDir/generated/source/kapt/main")]
+        test.java.srcDirs += 'src/test/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
+    }
+}
+
+dependencies {
+    implementation  'com.github.ajalt.reprint:core:3.2.1@aar'
+    implementation  'com.github.ajalt.reprint:reprint_spass:3.2.1@aar'
+    implementation  'com.github.ajalt.reprint:rxjava2:3.2.1@aar'
+    implementation  "de.adorsys.android:securestoragelibrary:1.0.2"
+
+    implementation libs.constraintLayout
+    implementation libs.supportDesign
+    implementation libs.supportAppCompat
+    implementation libs.Dagger2
+    implementation libs.glide
+    implementation libs.RxJava
+    implementation libs.RxAndroid
+    kapt libs.Dagger2Compiler
+    compileOnly libs.javaxAnnotation
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
