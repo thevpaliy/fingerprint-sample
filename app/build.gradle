@@ -46,6 +46,7 @@ dependencies {
     implementation 'com.github.ajalt.reprint:rxjava2:3.2.1@aar'
     implementation "de.adorsys.android:securestoragelibrary:1.0.2"
 
+    implementation 'com.uniquestudio:checkbox:1.0.10'
     implementation libs.constraintLayout
     implementation libs.supportDesign
     implementation libs.supportAppCompat

@@ -8,7 +8,7 @@ class FingerprintPresenter(
   private var passed = false
 
   override fun startScanning() {
-    if (passed) {
+    if (!passed) {
       fingerprintClient.authenticate({
         passed = true
         view?.showSuccess()
@@ -29,7 +29,7 @@ class FingerprintPresenter(
 
   override fun attachView(view: FingerprintContract.View) {
     this.view = view
-    if (!fingerprintClient.hasFingerprints) {
+    if (fingerprintClient.hasFingerprints) {
       view.showRegistration()
     } else {
       view.hideRegistration()

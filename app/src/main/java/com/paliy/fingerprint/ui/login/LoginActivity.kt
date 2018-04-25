@@ -25,7 +25,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_login)
     fingerprintOption.setOnClickListener {
-      dialog.show(supportFragmentManager, null)
+      dialog.show(fragmentManager, null)
     }
   }
 

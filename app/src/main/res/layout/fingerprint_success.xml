@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
+    <com.uniquestudio.library.CircleCheckBox
         android:id="@+id/successIcon"
+        app:background_color="#ffff"
+        app:tick_color="#2e7d32"
+        app:tick_width="5sp"
+        app:border_width="5dp"
         android:layout_centerInParent="true"
         android:layout_width="160dp"
         android:layout_height="160dp" />

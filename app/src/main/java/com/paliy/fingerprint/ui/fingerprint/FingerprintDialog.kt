@@ -1,16 +1,21 @@
 package com.paliy.fingerprint.ui.fingerprint
 
+import android.app.DialogFragment
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.mattprecious.swirl.SwirlView
+import com.paliy.fingerprint.App
 import com.paliy.fingerprint.R
+import com.paliy.fingerprint.di.DaggerPresentationComponent
+import com.paliy.fingerprint.di.PresenterModule
 import kotlinx.android.synthetic.main.fingerprint_dialog.*
 import kotlinx.android.synthetic.main.fingerprint_sign_in.*
+import kotlinx.android.synthetic.main.fingerprint_success.*
 import javax.inject.Inject
 
-class FingerprintDialog : DialogFragment(), FingerprintContract.View {
+class FingerprintDialog : DialogFragment() , FingerprintContract.View {
 
   var presenter: FingerprintContract.Presenter ? =null
     @Inject set(value) {
@@ -20,29 +25,32 @@ class FingerprintDialog : DialogFragment(), FingerprintContract.View {
 
   override fun onCreateView(inflater: LayoutInflater?,
                             container: ViewGroup?,
-                            savedInstanceState: Bundle?)
-     = inflater?.inflate(R.layout.fingerprint_dialog, container, false)
+                            savedInstanceState: Bundle?) : View? {
+    DaggerPresentationComponent.builder()
+        .applicationComponent(App.component)
+        .presenterModule(PresenterModule())
+        .build().inject(this)
+    return inflater?.inflate(R.layout.fingerprint_dialog, container, false)
+  }
 
-  override fun onStart() {
-    super.onStart()
+  override fun onResume() {
+    super.onResume()
     presenter?.startScanning()
   }
 
-  override fun onStop() {
-    super.onStop()
+  override fun onPause() {
+    super.onPause()
     presenter?.stopScanning()
   }
 
   override fun showLockedSensor() {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
   }
 
   override fun showRegistration() {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
   }
 
   override fun hideRegistration() {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
   }
 
   override fun showPrompt(prompt: String) {
@@ -54,5 +62,6 @@ class FingerprintDialog : DialogFragment(), FingerprintContract.View {
     fingerprintIcon.setState(SwirlView.State.ON)
     fingerprintStatus.setText(R.string.fingerprint_success)
     layoutSwitcher.showNext()
+    successIcon.isChecked = true
   }
 }

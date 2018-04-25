@@ -9,8 +9,8 @@
     android:layout_marginStart="16dp"
     android:background="#ffffff"
     android:paddingBottom="16dp"
-    android:paddingEnd="24dp"
-    android:paddingStart="24dp"
+    android:paddingEnd="8dp"
+    android:paddingStart="8dp"
     android:paddingTop="16dp"
     tools:ignore="MissingPrefix">
 
@@ -32,7 +32,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/fingerprint_description"
         android:textColor="#a4000000"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
