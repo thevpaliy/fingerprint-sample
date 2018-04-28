@@ -2,8 +2,16 @@ package com.paliy.fingerprint.ui.fingerprint
 
 class FingerprintPresenter(
     private val fingerprintClient: FingerprintClient,
-    private var view: FingerprintContract.View? = null
+    private var view: FingerprintContract.View
 ) : FingerprintContract.Presenter {
+
+  init {
+    if (fingerprintClient.hasFingerprints) {
+      view.showRegistration()
+    } else {
+      view.hideRegistration()
+    }
+  }
 
   private var passed = false
 
@@ -11,28 +19,21 @@ class FingerprintPresenter(
     if (!passed) {
       fingerprintClient.authenticate({
         passed = true
-        view?.showSuccess()
+        view.showSuccess()
       }, this::onError)
     }
   }
 
   private fun onError(error: AuthError) {
     when (error) {
-      is Failed -> view?.showPrompt(error.message)
-      is Locked -> view?.showSuccess()
+      is Failed -> view.showPrompt(error.message)
+      is Locked -> view.showLockedSensor()
     }
   }
 
   override fun stopScanning() {
+    passed = false
     fingerprintClient.cancel()
   }
 
-  override fun attachView(view: FingerprintContract.View) {
-    this.view = view
-    if (fingerprintClient.hasFingerprints) {
-      view.showRegistration()
-    } else {
-      view.hideRegistration()
-    }
-  }
 }

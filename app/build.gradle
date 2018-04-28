@@ -45,17 +45,14 @@ dependencies {
     implementation 'com.github.ajalt.reprint:reprint_spass:3.2.1@aar'
     implementation 'com.github.ajalt.reprint:rxjava2:3.2.1@aar'
     implementation "de.adorsys.android:securestoragelibrary:1.0.2"
-
-    implementation 'com.uniquestudio:checkbox:1.0.10'
+    implementation 'com.airbnb.android:lottie:2.5.4'
+    implementation libs.koin
     implementation libs.constraintLayout
     implementation libs.supportDesign
     implementation libs.supportAppCompat
-    implementation libs.Dagger2
     implementation libs.glide
     implementation libs.RxJava
     implementation libs.RxAndroid
-    kapt libs.Dagger2Compiler
-    compileOnly libs.javaxAnnotation
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
     testImplementation 'junit:junit:4.12'

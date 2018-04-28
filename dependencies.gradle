@@ -1,13 +1,11 @@
 
 ext {
 
-    daggerVersion = '2.9'
-    supportVersion = "27.0.2"
+    supportVersion = "27.1.1"
     rxJavaVersion = '2.0.2'
+    koinVersion = '0.9.2'
     rxAndroidVersion = '2.0.1'
     rxRelayVersion='2.0.0'
-    javaxAnnotationVersion = '1.0'
-    javaxInjectVersion = '1'
     glideVersion = "3.7.0"
     constraintLayoutVersion="1.0.2"
 
@@ -26,14 +24,11 @@ ext {
             glide              : "com.github.bumptech.glide:glide:${glideVersion}",
             supportAppCompat   : "com.android.support:appcompat-v7:${supportVersion}",
             supportDesign      : "com.android.support:design:${supportVersion}",
-            Dagger2Compiler    : "com.google.dagger:dagger-compiler:${daggerVersion}",
-            Dagger2            : "com.google.dagger:dagger:${daggerVersion}",
-            Dagger2Processor   : "com.google.dagger:dagger-android-processor:${daggerVersion}",
             RxJava             : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
             RxAndroid          : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
-            javaxAnnotation    : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             rxRelay            : "com.jakewharton.rxrelay2:rxrelay:${rxRelayVersion}",
             constraintLayout   : "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}",
+            koin               : "org.koin:koin-android:$koinVersion"
     ]
 
     testDependencies = [

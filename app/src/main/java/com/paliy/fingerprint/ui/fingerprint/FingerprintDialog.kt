@@ -1,49 +1,51 @@
 package com.paliy.fingerprint.ui.fingerprint
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.app.DialogFragment
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.mattprecious.swirl.SwirlView
-import com.paliy.fingerprint.App
 import com.paliy.fingerprint.R
-import com.paliy.fingerprint.di.DaggerPresentationComponent
-import com.paliy.fingerprint.di.PresenterModule
+import com.paliy.fingerprint.ui.hide
+import com.paliy.fingerprint.ui.show
 import kotlinx.android.synthetic.main.fingerprint_dialog.*
 import kotlinx.android.synthetic.main.fingerprint_sign_in.*
 import kotlinx.android.synthetic.main.fingerprint_success.*
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
-class FingerprintDialog : DialogFragment() , FingerprintContract.View {
+class FingerprintDialog : DialogFragment(), FingerprintContract.View {
 
-  var presenter: FingerprintContract.Presenter ? =null
-    @Inject set(value) {
-      field = value
-      field?.attachView(this)
-    }
+  private val presenter: FingerprintContract.Presenter by inject()
 
   override fun onCreateView(inflater: LayoutInflater?,
                             container: ViewGroup?,
-                            savedInstanceState: Bundle?) : View? {
-    DaggerPresentationComponent.builder()
-        .applicationComponent(App.component)
-        .presenterModule(PresenterModule())
-        .build().inject(this)
-    return inflater?.inflate(R.layout.fingerprint_dialog, container, false)
-  }
+                            savedInstanceState: Bundle?)
+      = inflater?.inflate(R.layout.fingerprint_dialog, container, false)
 
   override fun onResume() {
     super.onResume()
-    presenter?.startScanning()
+    presenter.startScanning()
   }
 
   override fun onPause() {
     super.onPause()
-    presenter?.stopScanning()
+    presenter.stopScanning()
   }
 
   override fun showLockedSensor() {
+    fingerprintStatus.setText(R.string.fingerprint_error_lockout)
+    fingerprintIcon.hide(isGone = false).post {
+      lockedIcon.show().post {
+        lockedIcon.animate()
+            .scaleX(1f)
+            .scaleY(1f)
+            .alpha(1f)
+            .start()
+      }
+    }
   }
 
   override fun showRegistration() {
@@ -62,6 +64,14 @@ class FingerprintDialog : DialogFragment() , FingerprintContract.View {
     fingerprintIcon.setState(SwirlView.State.ON)
     fingerprintStatus.setText(R.string.fingerprint_success)
     layoutSwitcher.showNext()
-    successIcon.isChecked = true
+    successIcon.post {
+      successIcon.playAnimation()
+      successIcon.addAnimatorListener(object : AnimatorListenerAdapter() {
+        override fun onAnimationEnd(animation: Animator?) {
+          super.onAnimationEnd(animation)
+          Handler().postDelayed(this@FingerprintDialog::dismiss, 500)
+        }
+      })
+    }
   }
 }

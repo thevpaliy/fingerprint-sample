@@ -7,19 +7,12 @@ import com.paliy.fingerprint.ui.fingerprint.FingerprintDialog
 import com.paliy.fingerprint.ui.hide
 import com.paliy.fingerprint.ui.show
 import kotlinx.android.synthetic.main.activity_login.*
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
 
-  var presenter: LoginContract.Presenter? = null
-    @Inject set(value) {
-      field = value
-      field?.attach(this)
-    }
-
-  private val dialog by lazy {
-    FingerprintDialog()
-  }
+  private val presenter: LoginContract.Presenter by inject()
+  private val dialog: FingerprintDialog by inject()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

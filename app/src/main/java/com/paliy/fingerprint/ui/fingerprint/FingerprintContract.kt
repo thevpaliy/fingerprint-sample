@@ -4,7 +4,6 @@ object FingerprintContract {
   interface Presenter {
     fun startScanning()
     fun stopScanning()
-    fun attachView(view: View)
   }
 
   interface View {

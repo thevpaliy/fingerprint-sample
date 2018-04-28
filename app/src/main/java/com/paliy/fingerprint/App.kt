@@ -2,28 +2,15 @@ package com.paliy.fingerprint
 
 import android.app.Application
 import com.github.ajalt.reprint.core.Reprint
-import com.paliy.fingerprint.di.ApplicationComponent
-import com.paliy.fingerprint.di.ApplicationModule
-import com.paliy.fingerprint.di.DaggerApplicationComponent
+import com.paliy.fingerprint.di.applicationModule
+import com.paliy.fingerprint.di.fingerprintModule
+import com.paliy.fingerprint.di.loginModule
+import org.koin.android.ext.android.startKoin
 
 class App : Application() {
-  val component: ApplicationComponent by lazy {
-    DaggerApplicationComponent.builder()
-        .applicationModule(ApplicationModule(this))
-        .build()
-  }
-
   override fun onCreate() {
     super.onCreate()
     Reprint.initialize(this)
-    instance = this
-  }
-
-
-  companion object {
-    private var instance: App? = null
-    val component by lazy {
-      instance?.component
-    }
+    startKoin(this, listOf(applicationModule, loginModule, fingerprintModule))
   }
 }
