@@ -6,6 +6,7 @@ import com.github.ajalt.reprint.core.Reprint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import com.github.ajalt.reprint.rxjava2.RxReprint
+import com.paliy.fingerprint.ui.login.Credentials
 
 class FingerprintClient {
   val isAvailable
@@ -14,16 +15,22 @@ class FingerprintClient {
   val hasFingerprints
     get() = Reprint.hasFingerprintRegistered()
 
-  fun authenticate(success: () -> Unit, warning: (AuthError) -> Unit) {
+  @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
+  fun authenticate(success: (Credentials) -> Unit, warning: (AuthError) -> Unit) {
     RxReprint.authenticate().subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe({ result ->
           when (result.status) {
-            AuthenticationResult.Status.SUCCESS -> success()
+            AuthenticationResult.Status.SUCCESS -> success(fetchCredentials())
             AuthenticationResult.Status.NONFATAL_FAILURE,
             AuthenticationResult.Status.FATAL_FAILURE -> warning(getError(result))
           }
         }, Throwable::printStackTrace)
+  }
+
+  private fun fetchCredentials(): Credentials {
+    //simulate fetching credentials for that particular user
+    return Credentials(email="email@example.com", password = "password")
   }
 
   private fun getError(result: AuthenticationResult): AuthError {

@@ -6,7 +6,7 @@ import com.paliy.fingerprint.R
 import com.paliy.fingerprint.ui.fingerprint.FingerprintDialog
 import com.paliy.fingerprint.ui.hide
 import com.paliy.fingerprint.ui.show
-import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.layout_login.*
 import org.koin.android.ext.android.inject
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
@@ -16,7 +16,8 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_login)
+    setContentView(R.layout.activity_container)
+    dialog.callback = this::handleCredentials
     fingerprintOption.setOnClickListener {
       dialog.show(fragmentManager, null)
     }
@@ -28,5 +29,11 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
   override fun hideFingerprint() {
     fingerprintOption.hide()
+  }
+
+  private fun handleCredentials(credentials: Credentials) {
+    emailInput.setText(credentials.email)
+    passwordInput.setText(credentials.password)
+    presenter.login(credentials)
   }
 }

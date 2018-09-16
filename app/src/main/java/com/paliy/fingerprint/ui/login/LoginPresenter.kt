@@ -8,7 +8,7 @@ class LoginPresenter(
 ) : LoginContract.Presenter {
 
   override fun login(credentials: Credentials) {
-
+    //simulate a database call
   }
 
   override fun attach(view: LoginContract.View) {

@@ -19,7 +19,7 @@ class FingerprintPresenter(
     if (!passed) {
       fingerprintClient.authenticate({
         passed = true
-        view.showSuccess()
+        view.showSuccess(it)
       }, this::onError)
     }
   }

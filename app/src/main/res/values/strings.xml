@@ -7,4 +7,9 @@
     <string name="use_fingerprint_label">Use Fingerprint</string>
     <string name="cancel_label">Cancel</string>
     <string name="sign_in_label">Sign In</string>
+
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="password_hint">Password</string>
+    <string name="email_hint">Email</string>
+    <string name="confirm_hint">Confirm Password</string>
 </resources>

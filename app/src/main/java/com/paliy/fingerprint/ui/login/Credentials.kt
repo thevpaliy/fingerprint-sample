@@ -4,6 +4,6 @@ data class Credentials(
     val email: String?,
     val password: String?
 ) {
-  val valid: Boolean
+  val isValid: Boolean
     get() = !(email.isNullOrEmpty() || password.isNullOrEmpty())
 }

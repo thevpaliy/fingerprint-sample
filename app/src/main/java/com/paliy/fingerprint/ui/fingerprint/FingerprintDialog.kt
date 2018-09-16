@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.mattprecious.swirl.SwirlView
 import com.paliy.fingerprint.R
 import com.paliy.fingerprint.ui.hide
+import com.paliy.fingerprint.ui.login.Credentials
 import com.paliy.fingerprint.ui.show
 import kotlinx.android.synthetic.main.fingerprint_dialog.*
 import kotlinx.android.synthetic.main.fingerprint_sign_in.*
@@ -18,12 +19,13 @@ import org.koin.android.ext.android.inject
 
 class FingerprintDialog : DialogFragment(), FingerprintContract.View {
 
+  var callback: ((Credentials) -> Unit)? = null
   private val presenter: FingerprintContract.Presenter by inject()
 
   override fun onCreateView(inflater: LayoutInflater?,
                             container: ViewGroup?,
                             savedInstanceState: Bundle?)
-      = inflater?.inflate(R.layout.fingerprint_dialog, container, false)
+          = inflater?.inflate(R.layout.fingerprint_dialog, container, false)
 
   override fun onResume() {
     super.onResume()
@@ -40,10 +42,10 @@ class FingerprintDialog : DialogFragment(), FingerprintContract.View {
     fingerprintIcon.hide(isGone = false).post {
       lockedIcon.show().post {
         lockedIcon.animate()
-            .scaleX(1f)
-            .scaleY(1f)
-            .alpha(1f)
-            .start()
+                .scaleX(1f)
+                .scaleY(1f)
+                .alpha(1f)
+                .start()
       }
     }
   }
@@ -60,18 +62,19 @@ class FingerprintDialog : DialogFragment(), FingerprintContract.View {
     fingerprintStatus.text = prompt
   }
 
-  override fun showSuccess() {
+  override fun showSuccess(credentials: Credentials) {
     fingerprintIcon.setState(SwirlView.State.ON)
     fingerprintStatus.setText(R.string.fingerprint_success)
     layoutSwitcher.showNext()
-    successIcon.post {
+    successIcon.postDelayed({
       successIcon.playAnimation()
       successIcon.addAnimatorListener(object : AnimatorListenerAdapter() {
         override fun onAnimationEnd(animation: Animator?) {
-          super.onAnimationEnd(animation)
-          Handler().postDelayed(this@FingerprintDialog::dismiss, 500)
+          Handler().postDelayed({
+            callback?.invoke(credentials); this@FingerprintDialog.dismiss()
+          }, 300)
         }
       })
-    }
+    }, 50)
   }
 }
