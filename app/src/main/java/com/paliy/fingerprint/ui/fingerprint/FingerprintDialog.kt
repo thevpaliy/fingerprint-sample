@@ -24,8 +24,7 @@ class FingerprintDialog : DialogFragment(), FingerprintContract.View {
 
   override fun onCreateView(inflater: LayoutInflater?,
                             container: ViewGroup?,
-                            savedInstanceState: Bundle?)
-          = inflater?.inflate(R.layout.fingerprint_dialog, container, false)
+                            savedInstanceState: Bundle?) = inflater?.inflate(R.layout.fingerprint_dialog, container, false)
 
   override fun onResume() {
     super.onResume()
@@ -42,10 +41,10 @@ class FingerprintDialog : DialogFragment(), FingerprintContract.View {
     fingerprintIcon.hide(isGone = false).post {
       lockedIcon.show().post {
         lockedIcon.animate()
-                .scaleX(1f)
-                .scaleY(1f)
-                .alpha(1f)
-                .start()
+            .scaleX(1f)
+            .scaleY(1f)
+            .alpha(1f)
+            .start()
       }
     }
   }

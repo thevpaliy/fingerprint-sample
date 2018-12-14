@@ -8,6 +8,16 @@ import com.paliy.fingerprint.ui.hide
 import com.paliy.fingerprint.ui.show
 import kotlinx.android.synthetic.main.layout_login.*
 import org.koin.android.ext.android.inject
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.graphics.Bitmap
+import com.bumptech.glide.request.target.ImageViewTarget
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.Glide
+import android.graphics.Point
+import android.view.View
+import kotlinx.android.synthetic.main.activity_container.*
+
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
 

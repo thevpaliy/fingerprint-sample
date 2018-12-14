@@ -1,5 +1,6 @@
 package com.paliy.fingerprint.ui.fingerprint
 
+import android.annotation.SuppressLint
 import com.github.ajalt.reprint.core.AuthenticationFailureReason
 import com.github.ajalt.reprint.core.AuthenticationResult
 import com.github.ajalt.reprint.core.Reprint
@@ -15,6 +16,7 @@ class FingerprintClient {
   val hasFingerprints
     get() = Reprint.hasFingerprintRegistered()
 
+  @SuppressLint("CheckResult")
   @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
   fun authenticate(success: (Credentials) -> Unit, warning: (AuthError) -> Unit) {
     RxReprint.authenticate().subscribeOn(Schedulers.io())
@@ -29,8 +31,9 @@ class FingerprintClient {
   }
 
   private fun fetchCredentials(): Credentials {
-    //simulate fetching credentials for that particular user
-    return Credentials(email="email@example.com", password = "password")
+    //simulate fetching
+    Thread.sleep(200)
+    return Credentials(email = "email@example.com", password = "password example")
   }
 
   private fun getError(result: AuthenticationResult): AuthError {
