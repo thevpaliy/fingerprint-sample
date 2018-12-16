@@ -11,5 +11,6 @@ object LoginContract {
     fun hideFingerprint()
     fun showLoading()
     fun hideLoading()
+    fun goToHome()
   }
 }

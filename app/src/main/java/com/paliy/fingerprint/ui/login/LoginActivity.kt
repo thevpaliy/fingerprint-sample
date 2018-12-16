@@ -1,10 +1,12 @@
 package com.paliy.fingerprint.ui.login
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.paliy.fingerprint.R
 import com.paliy.fingerprint.ui.fingerprint.FingerprintDialog
 import com.paliy.fingerprint.ui.hide
+import com.paliy.fingerprint.ui.home.HomeActivity
 import com.paliy.fingerprint.ui.show
 import kotlinx.android.synthetic.main.layout_login.*
 import org.koin.android.ext.android.inject
@@ -44,6 +46,10 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
   override fun showLoading() {
     loadingDialog.show()
+  }
+
+  override fun goToHome() {
+   startActivity(Intent(this, HomeActivity::class.java))
   }
 
   private fun handleCredentials(credentials: Credentials) {

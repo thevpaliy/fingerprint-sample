@@ -1,5 +1,6 @@
 package com.paliy.fingerprint.ui.login
 
+import android.annotation.SuppressLint
 import com.paliy.fingerprint.ui.fingerprint.FingerprintClient
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -11,12 +12,13 @@ class LoginPresenter(
     private var view: LoginContract.View? = null
 ) : LoginContract.Presenter {
 
+  @SuppressLint("CheckResult")
   override fun login(credentials: Credentials) {
     view?.showLoading()
-    Completable.timer(2, TimeUnit.SECONDS)
+    Completable.timer(5, TimeUnit.SECONDS)
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe { view?.hideLoading() }
+        .subscribe { view?.hideLoading(); view?.goToHome() }
   }
 
   override fun attach(view: LoginContract.View) {
