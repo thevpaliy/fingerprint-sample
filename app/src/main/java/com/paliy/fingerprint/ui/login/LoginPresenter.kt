@@ -1,6 +1,10 @@
 package com.paliy.fingerprint.ui.login
 
 import com.paliy.fingerprint.ui.fingerprint.FingerprintClient
+import io.reactivex.Completable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 class LoginPresenter(
     private val fingerprintClient: FingerprintClient,
@@ -8,7 +12,11 @@ class LoginPresenter(
 ) : LoginContract.Presenter {
 
   override fun login(credentials: Credentials) {
-    //simulate a database call
+    view?.showLoading()
+    Completable.timer(2, TimeUnit.SECONDS)
+        .subscribeOn(Schedulers.computation())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe { view?.hideLoading() }
   }
 
   override fun attach(view: LoginContract.View) {

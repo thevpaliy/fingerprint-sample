@@ -9,5 +9,7 @@ object LoginContract {
   interface View {
     fun showFingerprint()
     fun hideFingerprint()
+    fun showLoading()
+    fun hideLoading()
   }
 }

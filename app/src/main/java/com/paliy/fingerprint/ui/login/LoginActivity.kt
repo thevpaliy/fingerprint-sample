@@ -8,15 +8,7 @@ import com.paliy.fingerprint.ui.hide
 import com.paliy.fingerprint.ui.show
 import kotlinx.android.synthetic.main.layout_login.*
 import org.koin.android.ext.android.inject
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
-import android.graphics.Bitmap
-import com.bumptech.glide.request.target.ImageViewTarget
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.Glide
-import android.graphics.Point
-import android.view.View
-import kotlinx.android.synthetic.main.activity_container.*
+import com.paliy.fingerprint.ui.views.LoadingDialog
 
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
@@ -24,10 +16,15 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
   private val presenter: LoginContract.Presenter by inject()
   private val dialog: FingerprintDialog by inject()
 
+  private val loadingDialog by lazy {
+    LoadingDialog.create(this, root)
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_container)
     dialog.callback = this::handleCredentials
+    presenter.attach(this)
     fingerprintOption.setOnClickListener {
       dialog.show(fragmentManager, null)
     }
@@ -39,6 +36,14 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
   override fun hideFingerprint() {
     fingerprintOption.hide()
+  }
+
+  override fun hideLoading() {
+    loadingDialog.hide()
+  }
+
+  override fun showLoading() {
+    loadingDialog.show()
   }
 
   private fun handleCredentials(credentials: Credentials) {
