@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import com.mattprecious.swirl.SwirlView
 import com.paliy.fingerprint.R
 import com.paliy.fingerprint.ui.hide
-import com.paliy.fingerprint.ui.login.Credentials
+import com.paliy.fingerprint.ui.auth.Credentials
 import com.paliy.fingerprint.ui.show
 import kotlinx.android.synthetic.main.fingerprint_dialog.*
 import kotlinx.android.synthetic.main.fingerprint_sign_in.*
@@ -24,7 +24,8 @@ class FingerprintDialog : DialogFragment(), FingerprintContract.View {
 
   override fun onCreateView(inflater: LayoutInflater?,
                             container: ViewGroup?,
-                            savedInstanceState: Bundle?) = inflater?.inflate(R.layout.fingerprint_dialog, container, false)
+                            savedInstanceState: Bundle?)
+      = inflater?.inflate(R.layout.fingerprint_dialog, container, false)
 
   override fun onResume() {
     super.onResume()
@@ -47,13 +48,6 @@ class FingerprintDialog : DialogFragment(), FingerprintContract.View {
             .start()
       }
     }
-  }
-
-  override fun showRegistration() {
-
-  }
-
-  override fun hideRegistration() {
   }
 
   override fun showPrompt(prompt: String) {

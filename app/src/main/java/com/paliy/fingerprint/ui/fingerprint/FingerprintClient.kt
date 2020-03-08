@@ -7,7 +7,7 @@ import com.github.ajalt.reprint.core.Reprint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import com.github.ajalt.reprint.rxjava2.RxReprint
-import com.paliy.fingerprint.ui.login.Credentials
+import com.paliy.fingerprint.ui.auth.Credentials
 
 class FingerprintClient {
   val isAvailable
@@ -32,8 +32,8 @@ class FingerprintClient {
 
   private fun fetchCredentials(): Credentials {
     //simulate fetching
-    Thread.sleep(200)
-    return Credentials(email = "email@example.com", password = "password example")
+    Thread.sleep(100)
+    return Credentials(email = "email@.com", password = "password example")
   }
 
   private fun getError(result: AuthenticationResult): AuthError {

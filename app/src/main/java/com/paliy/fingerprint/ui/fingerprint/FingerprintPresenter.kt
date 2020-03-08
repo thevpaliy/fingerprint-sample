@@ -5,14 +5,6 @@ class FingerprintPresenter(
     private var view: FingerprintContract.View
 ) : FingerprintContract.Presenter {
 
-  init {
-    if (fingerprintClient.hasFingerprints) {
-      view.showRegistration()
-    } else {
-      view.hideRegistration()
-    }
-  }
-
   private var passed = false
 
   override fun startScanning() {

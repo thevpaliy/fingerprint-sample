@@ -1,4 +1,4 @@
-package com.paliy.fingerprint.ui.login
+package com.paliy.fingerprint.ui.auth
 
 data class Credentials(
     val email: String?,

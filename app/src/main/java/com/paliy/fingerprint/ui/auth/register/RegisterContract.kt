@@ -1,8 +1,10 @@
-package com.paliy.fingerprint.ui.login
+package com.paliy.fingerprint.ui.auth.register
 
-object LoginContract {
+import com.paliy.fingerprint.ui.auth.Credentials
+
+object RegisterContract {
   interface Presenter {
-    fun login(credentials: Credentials)
+    fun register(credentials: Credentials)
     fun attach(view: View)
   }
 
